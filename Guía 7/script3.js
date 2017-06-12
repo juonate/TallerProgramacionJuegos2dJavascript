@@ -122,7 +122,7 @@ function act(){
                     enemies[i].x = random(canvas.width/10)*10;
                     enemies[i].y = 0;
                     enemies.push(new Rectangulo(random(canvas.width/10)*10, 0, 50,50));
-                    enemies.splice(j--,1);
+                    disparo.splice(j--,1);
                     ll--;
                 }
             }
@@ -189,6 +189,7 @@ function paint(contexto){
     //contexto.fillStyle = '#00f';
     for(i = 0; i < enemies.length; i++){
         //enemies[i].fill(contexto);
+        //enemies.push(new Rectangulo(random(canvas.width/10)*10, 0, 50,50));
         contexto.drawImage(enemigoImagen,enemies[i].x,enemies[i].y, 50,50);
     }
 
