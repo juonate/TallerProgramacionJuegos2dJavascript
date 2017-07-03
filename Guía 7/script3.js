@@ -9,6 +9,7 @@ var naveImagen = new Image(),
     background = new Image(),
     sonidoDisparo = new Audio(),
     enemigoImagen = new Image();
+    enemigoImagen2 = new Image();
 
 var canvas = null,
     contexto = null,
@@ -34,6 +35,7 @@ function init(){
     naveImagen.src = 'nave.png';
     background.src = 'space.jpg';
     enemigoImagen.src = 'enemie.png';
+    enemigoImagen2.src = 'enemie2.gif';
     sonidoDisparo.src = 'disparo2.mp3';
 
     //Se crea el rectangulo que contendrá a la nave
@@ -100,14 +102,14 @@ function act(){
         }
 
         //Fuera del canvas
-        if(nave.x > canvas.width){
-            nave.x  = 0;
+        if(nave.x > canvas.width - nave.width){
+            nave.x  = canvas.width - nave.width;
         }
         if(nave.y > canvas.height){
             nave.y = 0;
         }
         if(nave.x < 0){
-            nave.x = canvas.width;
+            nave.x = 0;
         }
         if(nave.y < 0){
             nave.y = canvas.height;
@@ -121,7 +123,9 @@ function act(){
                     score++;
                     enemies[i].x = random(canvas.width/10)*10;
                     enemies[i].y = 0;
-                    enemies.push(new Rectangulo(random(canvas.width/10)*10, 0, 50,50));
+                    if(l < 2){
+                        enemies.push(new Rectangulo(random(canvas.width/10)*10, 0, 50,50));
+                    }
                     disparo.splice(j--,1);
                     ll--;
                 }
@@ -190,7 +194,12 @@ function paint(contexto){
     for(i = 0; i < enemies.length; i++){
         //enemies[i].fill(contexto);
         //enemies.push(new Rectangulo(random(canvas.width/10)*10, 0, 50,50));
-        contexto.drawImage(enemigoImagen,enemies[i].x,enemies[i].y, 50,50);
+        if(enemies.length >=2){
+            contexto.drawImage(enemigoImagen2,enemies[i].x,enemies[i].y, 50,50);
+        } else {
+            contexto.drawImage(enemigoImagen,enemies[i].x,enemies[i].y, 50,50);
+        }
+        
     }
 
     //Dibujar Puntaje
